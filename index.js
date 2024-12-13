@@ -9,31 +9,29 @@ addTimerButton.addEventListener("click", () => {
   // Create input
   const input = document.createElement("input");
   input.type = "number";
-  input.placeholder = "Enter time in seconds";
+  input.placeholder = "Введите время в секундах";
   input.style.marginRight = "10px";
 
   const startButton = document.createElement("button");
-  startButton.textContent = "Start Timer";
+  startButton.textContent = "Старт";
 
   const timerDisplay = document.createElement("div");
-  timerDisplay.textContent = "Timer will appear here...";
+  timerDisplay.textContent = "Здесь будет таймер...";
   timerDisplay.style.marginTop = "10px";
 
-  // Append elements to the timer wrapper
   timerWrapper.appendChild(input);
   timerWrapper.appendChild(startButton);
-  timerWrapper.appendChild(timerDisplay);
-
   timersContainer.appendChild(timerWrapper);
+  timerWrapper.appendChild(timerDisplay);
 
   startButton.addEventListener("click", () => {
     let timeLeft = parseInt(input.value, 10);
     if (isNaN(timeLeft) || timeLeft <= 0) {
-      timerDisplay.textContent = "Please enter a valid number!";
+      timerDisplay.textContent = "Введите число!";
       return;
     }
 
-    timerDisplay.textContent = `${timeLeft} seconds remaining`;
+    timerDisplay.textContent = `Осталось: ${timeLeft}`;
 
     if (timerWrapper.timerInterval) {
       clearInterval(timerWrapper.timerInterval);
@@ -42,9 +40,9 @@ addTimerButton.addEventListener("click", () => {
     timerWrapper.timerInterval = setInterval(() => {
       timeLeft--;
       if (timeLeft > 0) {
-        timerDisplay.textContent = `${timeLeft} seconds remaining`;
+        timerDisplay.textContent = `Осталось: ${timeLeft}`;
       } else {
-        timerDisplay.textContent = "Time's up!";
+        timerDisplay.textContent = "Время вышло!";
         clearInterval(timerWrapper.timerInterval);
         input.value = "";
       }
