@@ -1,51 +1,48 @@
-const addTimerButton = document.getElementById("btn");
-const timersContainer = document.getElementById("timers-container");
+const timeInput = document.getElementById("time-input");
+const addTimerButton = document.getElementById("add-timer");
+const timersList = document.getElementById("timers");
 
-// Create and add a new timer
+//  add a new timer
 addTimerButton.addEventListener("click", () => {
-  const timerWrapper = document.createElement("div");
-  timerWrapper.style.marginBottom = "20px";
+  const duration = parseInt(timeInput.value, 10);
 
-  // Create input
-  const input = document.createElement("input");
-  input.type = "number";
-  input.placeholder = "Введите время в секундах";
-  input.style.marginRight = "10px";
+  if (isNaN(duration) || duration <= 0) {
+    alert("Введите корректное время (положительное число)");
+    return;
+  }
 
-  const startButton = document.createElement("button");
-  startButton.textContent = "Старт";
-
-  const timerDisplay = document.createElement("div");
-  timerDisplay.textContent = "Здесь будет таймер...";
-  timerDisplay.style.marginTop = "10px";
-
-  timerWrapper.appendChild(input);
-  timerWrapper.appendChild(startButton);
-  timersContainer.appendChild(timerWrapper);
-  timerWrapper.appendChild(timerDisplay);
-
-  startButton.addEventListener("click", () => {
-    let timeLeft = parseInt(input.value, 10);
-    if (isNaN(timeLeft) || timeLeft <= 0) {
-      timerDisplay.textContent = "Введите число!";
-      return;
-    }
-
-    timerDisplay.textContent = `Осталось: ${timeLeft}`;
-
-    if (timerWrapper.timerInterval) {
-      clearInterval(timerWrapper.timerInterval);
-    }
-
-    timerWrapper.timerInterval = setInterval(() => {
-      timeLeft--;
-      if (timeLeft > 0) {
-        timerDisplay.textContent = `Осталось: ${timeLeft}`;
-      } else {
-        timerDisplay.textContent = "Время вышло!";
-        clearInterval(timerWrapper.timerInterval);
-        input.value = "";
-      }
-    }, 1000);
-  });
+  createTimer(duration);
+  timeInput.value = "";
 });
+
+function createTimer(duration) {
+  const timerItem = document.createElement("li");
+
+  const timerText = document.createElement("span");
+  timerText.className = "timer-text";
+  timerText.textContent = `${duration} секунд`;
+
+  const removeButton = document.createElement("button");
+  removeButton.className = "remove-button";
+  removeButton.textContent = "Удалить";
+
+  timerItem.appendChild(timerText);
+  timerItem.appendChild(removeButton);
+  timersList.appendChild(timerItem);
+
+  let remainingTime = duration;
+  const intervalId = setInterval(() => {
+    remainingTime -= 1;
+    timerText.textContent = `${remainingTime} секунд`;
+
+    if (remainingTime <= 0) {
+      clearInterval(intervalId);
+      timersList.removeChild(timerItem);
+    }
+  }, 1000);
+
+  removeButton.addEventListener("click", () => {
+    clearInterval(intervalId);
+    timersList.removeChild(timerItem);
+  });
+}

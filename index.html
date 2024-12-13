@@ -9,9 +9,19 @@
   </head>
   <body>
     <h1>Таймер</h1>
-
-    <div class="container" id="timers-container"></div>
-    <button id="btn">Добавить таймер</button>
+    <div id="app">
+      <div>
+        <input
+          type="number"
+          id="time-input"
+          placeholder="Введите время в секундах"
+        />
+        <button id="add-timer">Добавить таймер</button>
+      </div>
+      <ul id="timers">
+        <!-- Таймеры будут добавляться сюда -->
+      </ul>
+    </div>
 
     <script src="index.js"></script>
   </body>
