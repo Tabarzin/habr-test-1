@@ -46,7 +46,7 @@ addTimerButton.addEventListener("click", () => {
       } else {
         timerDisplay.textContent = "Time's up!";
         clearInterval(timerWrapper.timerInterval);
-        input.placeholder = "";
+        input.value = "";
       }
     }, 1000);
   });
