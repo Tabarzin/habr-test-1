@@ -20,7 +20,7 @@ function createTimer(duration) {
 
   const timerText = document.createElement("span");
   timerText.className = "timer-text";
-  timerText.textContent = `${duration} секунд`;
+  timerText.textContent = `${duration}`;
 
   const removeButton = document.createElement("button");
   removeButton.className = "remove-button";
@@ -33,7 +33,7 @@ function createTimer(duration) {
   let remainingTime = duration;
   const intervalId = setInterval(() => {
     remainingTime -= 1;
-    timerText.textContent = `${remainingTime} секунд`;
+    timerText.textContent = `${remainingTime}`;
 
     if (remainingTime <= 0) {
       clearInterval(intervalId);
